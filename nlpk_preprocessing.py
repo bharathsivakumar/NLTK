@@ -10,21 +10,30 @@ import matplotlib.pyplot as plt
 import re
 import string
 
-dataset = "IMDB_Dataset.csv" #located in same directory as the code 
-data_df = pd.read_csv(dataset)
+text_dataset = "IMDB_Dataset.csv" #located in same directory as the code 
+data_df = pd.read_csv(text_dataset)
 print( data_df.head() )
 
-def clean_review(review): # cleaning up our review data by removing unwanted stuff
-    review = review.lower() #converts to lower case
-    review = re.sub(r'\d+','',review) #removes number 
-    review = re.sub('\<.*?>', '', review) #removes (inclusive) all the words between <> 
-    review = re.sub('[%s]' % re.escape(string.punctuation), '', review) 
+def clean_text(text): # cleaning up our review data by removing unwanted stuff
+    text = text.lower() #converts to lower case
+    text = re.sub(r'\d+','',text) #removes number 
+    text = re.sub('\<.*?>', '', text) #removes (inclusive) all the words between <> 
+    text = re.sub('[%s]' % re.escape(string.punctuation), '', text) 
     #above line removes anything that is present in string.punctuation which would be punctuations
-    return review
+    return text
 
+def clean_tokenized_text(text):
+    stop_words = set(stopwords.words('english'))
+    filtered_sentence = []
+    for w in text:
+        if w not in stop_words:
+            filtered_sentence.append(w)
+    
+    return filtered_sentence
 
-first_cleaning = lambda  x: clean_review(x)
+text_cleaned = pd.Series(data_df.iloc[:,0].apply(clean_text)) 
+text_tokenized = text_cleaned.apply(nltk.word_tokenize)
+text_tokenized_cleaned = text_tokenized.apply(clean_tokenized_text)
 
-review_cleaned = pd.DataFrame(data_df.review.apply(clean_review)) 
-data_cleaned = pd.concat([review_cleaned.review, data_df.sentiment], axis = 1)
-print( data_cleaned.head() )
+data_cleaned_df = pd.concat([text_tokenized_cleaned, data_df.iloc[:,1]], axis = 1)
+print( data_cleaned_df.head() )
