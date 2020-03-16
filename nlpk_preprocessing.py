@@ -28,7 +28,7 @@ def clean_tokenized_text(text):
     for w in text:
         if w not in stop_words:
             filtered_sentence.append(w)
-    
+
     return filtered_sentence
 
 text_cleaned = pd.Series(data_df.iloc[:,0].apply(clean_text)) 
@@ -36,4 +36,5 @@ text_tokenized = text_cleaned.apply(nltk.word_tokenize)
 text_tokenized_cleaned = text_tokenized.apply(clean_tokenized_text)
 
 data_cleaned_df = pd.concat([text_tokenized_cleaned, data_df.iloc[:,1]], axis = 1)
+data_cleaned_df.to_pickle('cleaned_data.pickle')
 print( data_cleaned_df.head() )
