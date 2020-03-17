@@ -25,6 +25,7 @@ def clean_text(text): # cleaning up our review data by removing unwanted stuff
 def clean_tokenized_text(text):
     stop_words = set(stopwords.words('english'))
     filtered_sentence = []
+    
     for w in text:
         if w not in stop_words:
             filtered_sentence.append(w)
