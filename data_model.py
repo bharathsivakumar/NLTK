@@ -12,7 +12,7 @@ list_dict_review = []
 for review in data_cleaned_review:
     list_dict_review.append(list(review))
 
-dict_review = pd.Series(list_dict_review)
+dict_review = pd.Series(list_dict_review, name = 'review')
 
 data_model_df = pd.concat([dict_review,data_cleaned_df.iloc[:,1] ], axis = 1)
 data_model_df.to_pickle('model_data.pickle')
