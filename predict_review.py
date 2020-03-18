@@ -35,10 +35,14 @@ print("\nConfusion matrix of the model is:\n", cm)
 total_correct_predictions = cm['negative','negative'] + cm['positive','positive']
 total_wrong_predictions = cm['negative','positive'] + cm['positive','negative']
 accuracy = total_correct_predictions/(total_wrong_predictions + total_correct_predictions) 
-print("\nValue\n", accuracy)
+print("\Accuracy of the model on the testing data set is ", accuracy)
 
 test_review = "Children of Men is an incredible movie"
 token_test_review = word_tokenize(test_review)
 dict_test_review = dict([(word, True) for word in token_test_review])
 
 print("\n Sentiment for input review is", classifier.classify(dict_test_review) )
+dist = classifier.prob_classify(dict_test_review)
+
+for label in dist.samples():
+    print( "%s: %f" % (label, dist.prob(label)) )
