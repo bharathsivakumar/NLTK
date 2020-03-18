@@ -129,7 +129,7 @@ testing_data_df  =  data_model_df[training_size:]
 
 classifier, training_set_sizes, train_score, test_score,labels_testing_predicted_list, labels_testing_actual_list = estimate_learning_curves_Naive_Bayes(training_data_df, testing_data_df)
 
-#We are now going to save our fully trained classifier into a pickle file
+#We are now going to save our fully trained classifier into a pickle file so that we don't have to use re-train it
 save_classifier = open("naive_bayes_sentiment_analysis.pickle","wb")
 pickle.dump(classifier, save_classifier)
 save_classifier.close()
