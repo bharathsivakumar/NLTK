@@ -1,0 +1,17 @@
+Important takeaways from the task:
+1) Pre-processing the data is extremely important and how you pre-process your data depends on your dataset and what you want to do with your dataset 
+2) You can keep pre-processing trying to improve your model but you need to know when to stop. Too much pre-processing can also sometimes result in lack of flexibility of the model and may result in loss of information, reducing accuracy
+3) Just understanding an algorithm and what it does is not enough. You need to also understand what type of input that particular algorithm in some library takes as i.e. document corpus, document term matrix, tokenized corpus etc. 
+4) Just using accuracy or f1 score as a metric does not really help us understand much about the model. Where is our model going wrong? Can our model be improved by using more data? Is the complexity of our model enough to solve the problem? These kind of questions can only be solved with the help of a generating the learning curve. 
+5) More data does not mean you will get a better accuracy. In my case from the graph we can infer that 25000 entries would have been a sufficient training size that would have given us an accuracy very close to our current accuracy if we had used the same Naive Bayes algorithm. 
+6) The learning curve not only tells us how our accuracy changes over training set size, but also tells us if our model is highly biased or has too much variance. In our case, the training accuracy kept decreasing with the training size while our testing accuracy kept increasing. This meant our model had very few parameters therefore the performance of our model on the training and test set started becoming similar. Knowing if our model has high bias or high variance could help us from wasting a lot of time in collecting data. In our case, collecting more data would have been a waste of time. We need to make our model more complex. 
+
+How the model could be improved:
+1) In the pre-processing step, I did not remove names from the reviews and also did not remove numbers in the form of text like: "two", "five" etc. 
+2) Doing the same prediction using different models and combining them can improve accuracy 
+3) Normalizing words to its canonical form based on a word's lemma can be helpful. 
+4) My model had too much bias. This can be inferred from the learning curve Adding more features and trying to add more complexity to our model can make our hypothesis be able to better fit our training set. 
+5) Adding more features to our model can help improve our model
+6) We can use other simpler models which don't give a very high accuracy like decision trees, SVM or logistic regression along with Naive Bayes and create an ensemble model combining these models together to create a new one by bagging, boosting or stacking or by voting. 
+
+
