@@ -3,18 +3,18 @@ import numpy as np
 import nltk 
 from nltk.corpus import stopwords
 from nltk.text import Text
-import re
+import re #regular expressions that we'll use to remove unwated strings
 import string
 
 """
-In this module, we shall create 3 functions to pre-process a movie review dataset
-which we shall use to figure out how to perform sentiment analysis with the help 
+In this module, we create 3 functions to pre-process a movie review dataset
+which we use to figure out how to perform sentiment analysis with the help 
 of a Naive Bayes classifier. The 3 functions do the following respectively: 
-convert the review to lower case, remove punctuations etc., take a review this
-time in tokenized form and remove stop words from it, and finally convert a 
-tokenized review and convert to a dictionary format with words as keys and
-value true for all of them. This is required for the Naive Bayes classifier since
-it takes features in this format
+convert the review to lower case, remove punctuations etc., take a review 
+in tokenized form and remove stop words from it, and finally convert a 
+tokenized review to a dictionary format with words as keys and
+value 'true' for all of them. This is required for the Naive Bayes 
+classifier since it takes features in this format
 """
 
 def clean_text(text): 
@@ -35,10 +35,10 @@ def clean_text(text):
     4) Punctuations removed 
     """
     text = text.lower() #converts to lower case
-    text = re.sub(r'\d+','',text) #removes number 
+    text = re.sub(r'\d+', '', text) #removes number 
     text = re.sub('\<.*?>', '', text) #removes (inclusive) all the words between <> 
     text = re.sub('[%s]' % re.escape(string.punctuation), '', text) 
-    #above line removes anything that is present in string.punctuation which would be punctuations
+    #string.punctuation has all punctuations, in the above line, we remove them 
     return text
 
 def clean_tokenized_text(tokenized_text):
@@ -57,12 +57,14 @@ def clean_tokenized_text(tokenized_text):
     removed from the list. Stop words in english include all, just, don't, being,
     can etc. 
     """
-    stop_words = set(stopwords.words('english')) #stop_words now contains all the stop words in the English language as a list
+    #stop_words below will contain all the stop words in English language as a list
+    stop_words = set(stopwords.words('english')) 
     filtered_sentence = [] #empty list to store the words that are not stop words
     
     for w in tokenized_text:
         if w not in stop_words:
-            filtered_sentence.append(w) #Any word that is not a stop word is appended to our empty list 
+            #Below, any word that isn't a stop word is appended to empty list 
+            filtered_sentence.append(w) 
 
     return filtered_sentence
 
